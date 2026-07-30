@@ -1,0 +1,26 @@
+.record-date {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.record-date-month {
+  color: darkred;
+  font-weight: bold;
+  font-size: 0.7rem;
+  margin-bottom: 2px;
+}
+
+.record-date-day {
+  color: #555;
+  font-weight: 300;
+  font-size: 1.6rem;
+  line-height: 1.1;
+}
+
+.record-date-year {
+  color: #888;
+  font-size: 0.55rem;
+  margin-top: 2px;
+}

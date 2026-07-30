@@ -1,0 +1,48 @@
+.record {
+  background-color: #F7EBE1; /* pale cream */
+  border-radius: 15px;
+  list-style: none;
+  display: flex;
+  color: #333;
+  font-family: inherit;
+  justify-content: space-between;
+  padding: 10px 30px;
+  height: 90px;
+  align-items: center;
+  margin-bottom: 20px;
+  box-sizing: border-box;
+}
+
+.record li {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  font-size: 1.15rem;
+}
+
+/* Date Cell Wrapper override */
+.record > li:first-child > :global(.styled-record-cell) {
+  flex: 0 0 80px;
+  width: 80px;
+  height: 80px;
+  padding: 2px;
+  box-sizing: border-box;
+}
+
+/* Calorie Cell Wrapper override */
+.record-calories > :global(.styled-record-cell) {
+  flex: 0 0 90px;
+  width: 90px;
+  height: 40px;
+  padding: 0;
+  border-radius: 20px; /* pill shape */
+  box-sizing: border-box;
+}
+
+.record-calories {
+  color: #012367;
+  font-weight: bold;
+  font-size: 1.15rem;
+  list-style: none;
+}
