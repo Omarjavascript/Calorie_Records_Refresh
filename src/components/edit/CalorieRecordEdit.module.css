@@ -8,7 +8,7 @@
 }
 
 .form label {
-  color: var(--theme-color-dark);
+  color: var(--theme-background-dark);
   margin-right: 30px;
   margin-bottom: 10px;
 }
@@ -50,4 +50,18 @@
   border: 1px solid maroon;
   background-color: var(--theme-background-light);
   color: maroon;
+}
+.footer {
+  grid-column: 1 /-1;
+  justify-self: center;
+  width: 50%;
+  max-width: 250px;
+}
+
+@media (min-width: 786px) {
+  .form {
+    grid-template-columns: repeat(2, auto, 1fr);
+    grid-template-rows: repeat(2, 1fr), minmax(40px, auto);
+    column-gap: 1rem;
+  }
 }
