@@ -1,16 +1,14 @@
 .record {
-  background-color: #F7EBE1; /* pale cream */
-  border-radius: 15px;
   list-style: none;
   display: flex;
-  color: #333;
-  font-family: inherit;
-  justify-content: space-between;
+  color: var(--theme-color-normal);
+  justify-content: space-between; /* Space columns horizontally across the row */
   padding: 10px 30px;
-  height: 90px;
+  height: 90px; /* Enough height to fit the date card container comfortably */
   align-items: center;
-  margin-bottom: 20px;
   box-sizing: border-box;
+  width: 100%;
+  background-color: transparent; /* Changed to transparent so the row background blends with the main list container */
 }
 
 .record li {
@@ -21,23 +19,16 @@
   font-size: 1.15rem;
 }
 
-/* Date Cell Wrapper override */
-.record > li:first-child > :global(.styled-record-cell) {
-  flex: 0 0 80px;
-  width: 80px;
-  height: 80px;
-  padding: 2px;
-  box-sizing: border-box;
+/* Align date box to the left */
+.record > li:first-child {
+  flex: 0 0 100px;
+  justify-content: flex-start;
 }
 
-/* Calorie Cell Wrapper override */
-.record-calories > :global(.styled-record-cell) {
-  flex: 0 0 90px;
-  width: 90px;
-  height: 40px;
-  padding: 0;
-  border-radius: 20px; /* pill shape */
-  box-sizing: border-box;
+/* Align calorie capsule to the right */
+.record > li:last-child {
+  flex: 0 0 120px;
+  justify-content: flex-end;
 }
 
 .record-calories {

@@ -1,6 +1,6 @@
 :global(.styled-record-cell) {
   background-color: white;
-  border: 3px solid #012367;
+  border: 3px solid var(--theme-color-normal); /* Changed border color to theme purple to match the new mockup style */
   border-radius: 15px;
   display: flex;
   flex-direction: column;

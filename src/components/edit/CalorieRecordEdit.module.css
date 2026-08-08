@@ -1,67 +1,116 @@
-/* Form styles */
-
+/* Form main container styles */
 .form {
-  background-color: var(--theme-background-ultralight);
-  padding: 20px;
-  border-radius: 10px;
-  border: solid 1px var(--theme-background-normal);
-}
-
-.form label {
-  color: var(--theme-background-dark);
-  margin-right: 30px;
-  margin-bottom: 10px;
-}
-
-.form input[type="text"],
-.form input[type="number"],
-.calories-input,
-.form input[type="date"],
-.form select {
-  background-color: var(--theme-background-light);
-  color: var(--theme-color-normal);
-  border: 1px solid var(--theme-background-normal);
-  padding: 10px;
-  border-radius: 4px;
+  background-color: var(--theme-background-ultralight); /* Light blue-cyan background from screenshot */
+  border: 1px solid var(--theme-background-normal); /* Light blue border matching the container style */
+  border-radius: 15px; /* Large rounded corners for the form */
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  box-sizing: border-box;
   width: 100%;
-  min-width: 255px;
-  margin-bottom: 20px;
-  font-size: 16px;
-  display: block;
+}
+
+/* Rows container for keeping elements aligned horizontally */
+.formRow {
+  display: flex;
+  gap: 20px;
+  width: 100%;
   box-sizing: border-box;
 }
 
-.footer {
+/* Individual input group wrapping label and input inline */
+.inputGroup {
   display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1; /* Make each input group take equal half width of the row */
+  width: 100%;
+  box-sizing: border-box;
 }
 
-.footer button {
-  background-color: var(--theme-color-normal);
-  color: var(--theme-background-light);
-  display: block;
-  border: none;
-  border-radius: 15px;
-  padding: 10px;
-  cursor: pointer;
-  flex-grow: 1;
+/* Align labels nicely next to their input fields */
+.inputGroup label {
+  flex: 0 0 70px; /* Fixed label width to keep inputs aligned */
+  color: #333;
+  font-weight: 500;
+  text-align: left;
 }
 
+/* Styling for all inputs and select dropdowns */
+.inputGroup input,
+.inputGroup select {
+  background-color: var(--theme-background-light); /* Light greyish input background color */
+  border: 2px solid var(--theme-color-normal); /* Purple border matching the theme color */
+  border-radius: 6px; /* Slightly rounded corners for the inputs */
+  color: var(--theme-color-normal); /* Purple text color inside the inputs */
+  padding: 8px 12px;
+  font-size: 16px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Specific error styling when input value is invalid */
 .form input.error {
-  border: 1px solid maroon;
-  background-color: var(--theme-background-light);
-  color: maroon;
-}
-.footer {
-  grid-column: 1 /-1;
-  justify-self: center;
-  width: 50%;
-  max-width: 250px;
+  border-color: red;
+  background-color: white;
+  color: red;
 }
 
-@media (min-width: 786px) {
-  .form {
-    grid-template-columns: repeat(2, auto, 1fr);
-    grid-template-rows: repeat(2, 1fr), minmax(40px, auto);
-    column-gap: 1rem;
+/* Primary "Add Record" button styling */
+.primary {
+  flex: 1;
+  background-color: var(--theme-color-normal); /* Purple background */
+  color: white; /* White text */
+  border: none;
+  border-radius: 20px; /* Pill-shaped rounded corners */
+  padding: 10px 40px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  box-sizing: border-box;
+  transition: opacity 0.2s;
+}
+
+.primary:hover {
+  opacity: 0.9;
+}
+
+.primary:disabled {
+  background-color: #ccc; /* Grey background when disabled */
+  color: #888; /* Grey text when disabled */
+  cursor: not-allowed; /* Shows not-allowed cursor to user */
+  opacity: 0.6;
+}
+
+/* Secondary "Cancel" button styling */
+.secondry {
+  flex: 1;
+  background-color: var(--theme-background-light); /* Light gray background */
+  border: 2px solid var(--theme-background-normal); /* Outlined blue border */
+  color: var(--theme-color-normal); /* Purple text */
+  border-radius: 20px; /* Pill-shaped rounded corners */
+  padding: 10px 40px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  box-sizing: border-box;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.secondry:hover {
+  background-color: var(--theme-background-normal); /* Filled blue on hover */
+  color: white; /* White text on hover */
+}
+
+/* 📱 Responsive media query to stack inputs and buttons vertically on mobile screens */
+@media (max-width: 768px) {
+  .formRow {
+    flex-direction: column; /* Stacks inputs and buttons vertically on small screens */
+    gap: 15px;
+  }
+
+  .inputGroup label {
+    flex: 0 0 80px; /* Gives slightly more space to labels on mobile layout */
   }
 }

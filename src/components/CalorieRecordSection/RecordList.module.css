@@ -1,10 +1,30 @@
 .list {
   list-style: none;
   padding: 0;
-  border: 1px solid #ccc;
-  border-radius: 10px;
+  border: 1px solid var(--theme-color-light); /* Light purple border around the entire list container */
+  border-radius: 15px; /* Smooth rounded corners for the list */
+  overflow: hidden; /* Ensures child items don't overflow the rounded corners */
+  background-color: white; /* White background to stand out from the page background */
+  margin: 0;
 }
 
 .listItem {
-  margin: 10px;
+  margin: 0; /* Removed margin between items to align them flush against each other */
+}
+
+/* Draws a divider line between consecutive list items, except for the last item */
+.listItem:not(:last-child) {
+  border-bottom: 1px solid var(--theme-color-light); /* Light purple divider line */
+}
+
+.placeholder {
+  height: 100px;
+  width: 100%;
+  border: 1px solid var(--theme-color-normal);
+  border-radius: var(--theme-color-light);
+  text-align: center;
+  line-height: 100px;
+  margin: 20px 0;
+  font-size: 20px;
+  color: var(--theme-color-normal);
 }

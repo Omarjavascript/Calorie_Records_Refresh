@@ -1,0 +1,100 @@
+/* 1. Backdrop (overlay) that darkens the background when the modal is open */
+.overlay {
+  background-color: rgba(0, 0, 0, 0.55); /* Translucent dark backdrop */
+  position: fixed; /* Fixed position covering the entire viewport */
+  inset: 0; /* Top, Right, Bottom, Left set to 0 */
+  z-index: 1000; /* Behind the popup but in front of page content */
+  animation: overlayShow 150ms cubic-bezier(0.16, 1, 0.3, 1); /* Smooth fade-in animation */
+}
+
+/* 2. Main modal container (popup window) containing the form */
+.content {
+  background-color: white; /* White background for the card */
+  border-radius: 15px; /* Matches the rounded look of our list items */
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2); /* Deep shadow for 3D elevation */
+  position: fixed; /* Positioned relative to screen viewport */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* Centers the modal perfectly on screen */
+  width: 90%;
+  max-width: 800px; /* Limits maximum width on desktop screens */
+  padding: 30px 25px 25px; /* Padding inside the modal */
+  z-index: 1001; /* Renders in front of the backdrop */
+  box-sizing: border-box;
+  animation: contentShow 200ms cubic-bezier(0.16, 1, 0.3, 1); /* Smooth scale-in animation */
+}
+
+/* Modal Title */
+.title {
+  margin: 0 0 15px 0;
+  font-size: 22px;
+  color: var(--theme-color-normal); /* Purple color matching the theme */
+  font-weight: 600;
+  text-align: center;
+}
+
+/* Close button (the 'X' button at the top-right corner of the modal) */
+.closeButton {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: none;
+  border: none;
+  font-size: 24px;
+  font-weight: bold;
+  color: #777; /* Subtle grey color */
+  cursor: pointer;
+  padding: 5px;
+  line-height: 1;
+  transition: color 0.2s;
+}
+
+.closeButton:hover {
+  color: var(--theme-color-normal); /* Turns purple on hover */
+}
+
+/* 3. The "Track" trigger button on the main page */
+.trackButton {
+  background-color: var(--theme-color-normal); /* Theme purple color */
+  color: white; /* White text */
+  border: none;
+  border-radius: 25px; /* Pill-shaped rounded corners */
+  padding: 12px 40px; /* Generous padding for a premium click targets */
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  display: block;
+  margin: 20px auto; /* Centers the button horizontally with spacing */
+  box-shadow: 0 4px 10px rgba(132, 88, 179, 0.3); /* Subtle purple drop shadow */
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.trackButton:hover {
+  transform: translateY(-2px); /* Lifts up slightly on hover */
+  box-shadow: 0 6px 15px rgba(132, 88, 179, 0.4); /* Deeper shadow on hover */
+}
+
+.trackButton:active {
+  transform: translateY(0); /* Returns to original position when clicked */
+}
+
+/* Animations declarations */
+@keyframes overlayShow {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes contentShow {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -48%) scale(0.95); /* Scale in from 95% and slightly lower */
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1); /* Return to full scale and center */
+  }
+}

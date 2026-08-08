@@ -1,0 +1,53 @@
+.listing-picker-label {
+  color: var(--theme-color-dark);
+  line-height: 40px;
+  font-weight: 500;
+}
+
+.listing-picker-input {
+  margin: 20px;
+  background-color: var(--theme-background-light);
+  color: var(--theme-color-normal);
+  border: 1px solid var(--theme-color-normal);
+  padding: 10px;
+  border-radius: 5px;
+  width: 100%;
+  max-width: 225px;
+  margin-bottom: 20px;
+  font-size: 16px;
+  box-sizing: border-box;
+}
+
+/* User Card Styles */
+.userCard {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  background-color: var(--theme-background-light); /* Light theme background */
+  border: 1px solid var(--theme-color-light); /* Subtle light purple border */
+  padding: 15px;
+  border-radius: 12px; /* Rounded corners matching rest of app */
+  margin-bottom: 25px;
+  text-align: left; /* Align text to left for english profile cards */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%; /* Circle shape avatar */
+  border: 2px solid var(--theme-color-normal); /* Purple border around picture */
+  background-color: white;
+}
+
+.userInfo h3 {
+  margin: 0 0 5px 0; /* Tight margins for title */
+  color: var(--theme-color-dark);
+  font-size: 1.1rem;
+}
+
+.userInfo p {
+  margin: 0;
+  color: var(--theme-color-normal);
+  font-size: 0.9rem;
+}
