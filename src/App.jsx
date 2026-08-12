@@ -65,7 +65,7 @@ export default function App() {
   console.log({ localStorage });
   return (
     <div>
-      <h1>Welcome to React with Almdrasa!</h1>
+      <h1>Calories Trackers!</h1>
 
       {/* 1. Dialog Root: Connects the open state and change handler */}
       <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
