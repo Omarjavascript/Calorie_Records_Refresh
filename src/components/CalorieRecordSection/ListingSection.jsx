@@ -9,9 +9,7 @@ export function ListingSection(props) {
   /* Initializing the filter date state to today's date */
   const [curruntDate, setCurruntDate] = useState(new Date()); //inisial value date of day
   useEffect(() => {
-    const timeOutId = setTimeout(() => {
-      setFilteredRecords(allRecords.filter(dateFilter));
-    }, 5000);
+    const timeOutId = setFilteredRecords(allRecords.filter(dateFilter));
     console.log("data loaded");
     return () => {
       clearTimeout(timeOutId);
