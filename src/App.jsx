@@ -66,7 +66,9 @@ export default function App() {
   return (
     <div>
       <h1>Calories Trackers!</h1>
-      <p>Fix the bug</p>
+      <p style="font-family: 'Arial', sans-serif; font-size: 18px; font-weight: bold;">
+        Fix the bug
+      </p>
 
       {/* 1. Dialog Root: Connects the open state and change handler */}
       <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
