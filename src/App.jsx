@@ -85,7 +85,9 @@ export default function App() {
           {/* 5. Dialog Content: The modal popup box containing the form */}
           <Dialog.Content className={styles.content}>
             {/* Title representing accessibility header for screen readers */}
-            <Dialog.Title className={styles.title}>Track New Meal</Dialog.Title>
+            <Dialog.Title className={styles.title}>
+              Track New Meal and{" "}
+            </Dialog.Title>
 
             {/* Our custom form component, passing both submit and cancel handlers */}
             <CalorieRecordEdit
