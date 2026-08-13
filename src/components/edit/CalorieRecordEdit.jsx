@@ -2,6 +2,7 @@ import { useState } from "react";
 import styles from "./CalorieRecordEdit.module.css";
 
 export function CalorieRecordEdit(props) {
+  /* Restored default values to simple primitive types to avoid React object-as-child runtime crash */
   const DEFUALT_VALUES = {
     date: "",
     meal: "BreakFast",
@@ -38,12 +39,8 @@ export function CalorieRecordEdit(props) {
   };
   const onSubmitHandller = (event) => {
     event.preventDefault();
-    setMealRecords(DEFUALT_VALUES); //لمن نسوي سبميت يفضي الانبوتس
-    console.log({
-      ...mealRecords,
-    });
-
-    props.onFormSubmit(mealRecords); //container come from parent
+    setMealRecords(DEFUALT_VALUES); // لمن نسوي سبميت يفضي الانبوتس
+    props.onFormSubmit(mealRecords); // container come from parent
   };
 
   const onCancelHandller = () => {
@@ -52,7 +49,10 @@ export function CalorieRecordEdit(props) {
   };
 
   /* Helper condition to check if the form is valid (date has value, calories is not empty and is positive) */
-  const isFormInvalid = !mealRecords.date || mealRecords.calories === "" || Number(mealRecords.calories) < 0;
+  const isFormInvalid =
+    !mealRecords.date ||
+    mealRecords.calories === "" ||
+    Number(mealRecords.calories) < 0;
 
   return (
     <form className={styles.form} onSubmit={onSubmitHandller}>
@@ -111,9 +111,8 @@ export function CalorieRecordEdit(props) {
 
       {/* Row 3: Save and Cancel buttons side by side */}
       <div className={styles.formRow}>
-        {/* Added disabled attribute which resolves to true if the inputs are not correctly filled */}
-        <button 
-          type="submit" 
+        <button
+          type="submit"
           className={styles.primary}
           disabled={isFormInvalid}
         >

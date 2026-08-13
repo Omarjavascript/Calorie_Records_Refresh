@@ -1,16 +1,21 @@
 import styles from "./CalorieRecord.module.css";
 import { StyledRecordCell } from "../common/StyledRecordCell";
 import { CalorieRecordDate } from "./CalorieRecordDate";
-import { useEffect } from "react";
 
 export function CalorieRecord(props) {
-  useEffect(() => {
-    props.addCalories((prevCalories) => prevCalories + props.calories);
-
-    return () => {
-      props.addCalories((prevCalories) => prevCalories - props.calories);
-    };
-  }, [props.calories]);
+  /* Defensive extraction to prevent object-as-child render crashes */
+  const meal =
+    typeof props.meal === "object" && props.meal !== null
+      ? props.meal.value || "Meal"
+      : props.meal;
+  const content =
+    typeof props.content === "object" && props.content !== null
+      ? props.content.value || ""
+      : props.content;
+  const calories =
+    typeof props.calories === "object" && props.calories !== null
+      ? props.calories.value || 0
+      : props.calories;
 
   return (
     <ul className={styles.record}>
@@ -19,10 +24,10 @@ export function CalorieRecord(props) {
           <CalorieRecordDate date={props.date} />
         </StyledRecordCell>
       </li>
-      <li>{props.meal}</li>
-      <li>{props.content}</li>
+      <li>{meal}</li>
+      <li>{content}</li>
       <li className={styles["record-calories"]}>
-        <StyledRecordCell>{props.calories}</StyledRecordCell>
+        <StyledRecordCell>{calories}</StyledRecordCell>
       </li>
     </ul>
   );

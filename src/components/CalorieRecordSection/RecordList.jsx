@@ -1,21 +1,24 @@
-import { useState } from "react";
 import { CalorieRecord } from "./CalorieRecord";
 import styles from "./RecordList.module.css";
 
 export function RecordList(props) {
-  const [totalRecords, setTotalRecords] = useState(0);
+  const records = props.records || [];
 
-  const resultElement = props.records?.length ? (
+  const totalCalories = records.reduce(
+    (sum, record) => sum + (Number(record.calories) || 0),
+    0,
+  );
+
+  const resultElement = records.length ? (
     <ul className={styles.list}>
-      {props.records.map((record) =>
+      {records.map((record) =>
         record.calories > 0 ? (
-          <li className={styles["list-Item"]} key={record.id}>
+          <li className={styles.listItem} key={record.id}>
             <CalorieRecord
               date={record.date}
               meal={record.meal}
               content={record.content}
               calories={record.calories}
-              addCalories={setTotalRecords}
             />
           </li>
         ) : (
@@ -26,13 +29,16 @@ export function RecordList(props) {
       )}
     </ul>
   ) : (
-    <div className={styles.placeholder}>NO RECORDS ON THIS DATE </div>
+    <div className={styles.placeholder}>NO RECORDS ON THIS DATE</div>
   );
+
   return (
     <>
       {resultElement}
-      <label>total calories:</label>
-      {totalRecords}
+      <div style={{ marginTop: "15px", fontWeight: "bold" }}>
+        <label>Total calories: </label>
+        <span>{totalCalories}</span>
+      </div>
     </>
   );
 }

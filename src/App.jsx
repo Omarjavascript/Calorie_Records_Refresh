@@ -6,31 +6,44 @@ import "./App.css";
 import * as Dialog from "@radix-ui/react-dialog"; /* Import Radix UI Dialog primitive */
 import styles from "./components/edit/Modal.module.css"; /* Import the CSS module for the modal styles */
 
-import { ListingSection } from "./components/CalorieRecordSection/ListingSection"; /* Changed from RecordList to ListingSection to restore date filtering */
+import { ListingSection } from "./components/CalorieRecordSection/ListingSection";
 import { CalorieRecordEdit } from "./components/edit/CalorieRecordEdit";
 
 export default function App() {
   /* Set default calorie records list to empty so the app starts blank */
   const INISIAL_RECORDS = [];
 
-  /* 1. Initializing state using a lazy function to load data from LocalStorage on mount */
+  /* 1. Initializing state and sanitizing any corrupted data stored in localStorage */
   const [records, setRecords] = useState(() => {
     const storedRecords = localStorage.getItem("calorie_records");
     if (storedRecords) {
       try {
-        console.log({ storedRecords });
         const parsed = JSON.parse(storedRecords);
-        /* Critical: JSON parses dates as Strings. We must convert them back to Date objects! */
-        return parsed.map((record) => ({
-          ...record,
-          date: new Date(record.date),
-        }));
+        if (Array.isArray(parsed)) {
+          return parsed.map((record) => ({
+            id: record.id || "r" + Math.random().toString(36).substring(2, 9),
+            date: record.date ? new Date(record.date) : new Date(),
+            /* Defensive check: extract value string if record was saved as an object */
+            meal:
+              typeof record.meal === "object" && record.meal !== null
+                ? record.meal.value || "BreakFast"
+                : record.meal || "BreakFast",
+            content:
+              typeof record.content === "object" && record.content !== null
+                ? record.content.value || ""
+                : record.content || "",
+            calories:
+              typeof record.calories === "object" && record.calories !== null
+                ? Number(record.calories.value) || 0
+                : Number(record.calories) || 0,
+          }));
+        }
       } catch (error) {
         console.error("Error parsing localStorage records:", error);
       }
     }
 
-    return INISIAL_RECORDS; /* Fallback to default records list if empty */
+    return INISIAL_RECORDS;
   });
 
   /* State to control if the Dialog Modal is open or closed */
@@ -44,25 +57,25 @@ export default function App() {
   /* Handler called when the form in CalorieRecordEdit is submitted */
   const onFormSubitHandller = (record) => {
     const newRecord = {
-      ...record,
-      id:
-        "r" +
-        Math.random()
-          .toString(36)
-          .substring(2, 9) /* Generates a unique key for the map list */,
-      date: record.date
-        ? new Date(record.date)
-        : new Date() /* Parses the date correctly */,
+      id: "r" + Math.random().toString(36).substring(2, 9),
+      date: record.date ? new Date(record.date) : new Date(),
+      meal:
+        typeof record.meal === "object" && record.meal !== null
+          ? record.meal.value || "BreakFast"
+          : record.meal || "BreakFast",
+      content:
+        typeof record.content === "object" && record.content !== null
+          ? record.content.value || ""
+          : record.content || "",
       calories:
-        Number(record.calories) || 0 /* Ensures calories is a numeric value */,
+        typeof record.calories === "object" && record.calories !== null
+          ? Number(record.calories.value) || 0
+          : Number(record.calories) || 0,
     };
-    setRecords((prevRecords) => [
-      newRecord,
-      ...prevRecords,
-    ]); /* Adds the new record to the top of the state array */
-    setIsOpen(false); /* Closes the Dialog modal automatically */
+    setRecords((prevRecords) => [newRecord, ...prevRecords]);
+    setIsOpen(false);
   };
-  console.log({ localStorage });
+
   return (
     <div>
       <h1>Calories Trackers!</h1>
@@ -92,9 +105,7 @@ export default function App() {
             {/* Our custom form component, passing both submit and cancel handlers */}
             <CalorieRecordEdit
               onFormSubmit={onFormSubitHandller}
-              onCancel={() =>
-                setIsOpen(false)
-              } /* Closes the modal on Cancel click */
+              onCancel={() => setIsOpen(false)}
             />
 
             {/* 6. Dialog Close: Renders an 'X' button to close the modal manually */}
@@ -107,7 +118,7 @@ export default function App() {
         </Dialog.Portal>
       </Dialog.Root>
 
-      {/* 7. Restored: We now render ListingSection (which includes the Date Filter input) instead of RecordList directly */}
+      {/* 7. ListingSection for displaying the Date Filter input and RecordList */}
       <ListingSection allRecords={records} />
     </div>
   );

@@ -1,21 +1,13 @@
 import { RecordList } from "./RecordList";
 import styles from "./ListingSection.module.css";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 export function ListingSection(props) {
   const { allRecords } = props;
-  const [filteredRecords, setFilteredRecords] = useState([]);
 
   /* Initializing the filter date state to today's date */
-  const [curruntDate, setCurruntDate] = useState(new Date()); //inisial value date of day
-  useEffect(() => {
-    const timeOutId = setFilteredRecords(allRecords.filter(dateFilter));
-    console.log("data loaded");
-    return () => {
-      clearTimeout(timeOutId);
-      console.log("data cleared");
-    };
-  }, [curruntDate]);
+  const [curruntDate, setCurruntDate] = useState(new Date());
+
   /* Handler that updates the filter date when the user picks a date */
   const dateHandller = (event) => {
     setCurruntDate(new Date(event.target.value));
@@ -23,10 +15,14 @@ export function ListingSection(props) {
 
   /* Filter function to check if the record date matches the selected filter date */
   const dateFilter = (record) => {
+    if (!curruntDate || isNaN(curruntDate.getTime())) return true;
+    const recordDate =
+      record.date instanceof Date ? record.date : new Date(record.date);
+
     return (
-      record.date.getDate() === curruntDate.getDate() &&
-      record.date.getMonth() === curruntDate.getMonth() &&
-      record.date.getFullYear() === curruntDate.getFullYear()
+      recordDate.getDate() === curruntDate.getDate() &&
+      recordDate.getMonth() === curruntDate.getMonth() &&
+      recordDate.getFullYear() === curruntDate.getFullYear()
     );
   };
 
@@ -39,10 +35,14 @@ export function ListingSection(props) {
         id="listingDate"
         type="date"
         className={styles["listing-picker-input"]}
-        value={curruntDate.toISOString().split(`T`)[0]} //value date of day
+        value={
+          curruntDate && !isNaN(curruntDate.getTime())
+            ? curruntDate.toISOString().split("T")[0]
+            : ""
+        }
         onChange={dateHandller}
       />
-      <RecordList records={filteredRecords} />
+      <RecordList records={allRecords.filter(dateFilter)} />
     </>
   );
 }
