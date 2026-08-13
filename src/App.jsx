@@ -79,8 +79,9 @@ export default function App() {
   return (
     <div>
       <h1>Calories Trackers!</h1>
-      <p style="font-family: 'Arial', sans-serif; font-size: 20px; font-weight: bold;">
-        Fix the bug
+      {/* Fixed: React style attribute expects an object {{ ... }}, not a string */}
+      <p style={{ fontFamily: "Arial, sans-serif", fontSize: "20px", fontWeight: "bold" }}>
+        Track your daily meals and calories
       </p>
 
       {/* 1. Dialog Root: Connects the open state and change handler */}
@@ -99,7 +100,7 @@ export default function App() {
           <Dialog.Content className={styles.content}>
             {/* Title representing accessibility header for screen readers */}
             <Dialog.Title className={styles.title}>
-              Track New Meal and{" "}
+              Track New Meal
             </Dialog.Title>
 
             {/* Our custom form component, passing both submit and cancel handlers */}
